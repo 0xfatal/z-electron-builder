@@ -77,7 +77,6 @@ const runAction = () => {
 	// the same directory as the Electron app, so the `package_root` option should be used instead
 	const appRoot = getInput("app_root") || pkgRoot;
 
-
 	const pkgJsonPath = join(pkgRoot, "package.json");
 	const pkgLockPath = join(pkgRoot, "package-lock.json");
 	const yarnPkgLockPath = join(pkgRoot, "yarn.lock");
@@ -125,9 +124,9 @@ const runAction = () => {
 			}
 		}
 		if (useNpm) {
-			run(`npm run ${buildScriptName} --if-present`, pkgRoot);
+			run(`npm --if-present run ${buildScriptName}`, pkgRoot);
 		} else {
-			run(`pnpm run ${buildScriptName} --if-present`, pkgRoot);
+			run(`pnpm --if-present run ${buildScriptName}`, pkgRoot);
 		}
 	}
 
@@ -136,7 +135,7 @@ const runAction = () => {
 	for (let i = 0; i < maxAttempts; i += 1) {
 		try {
 			run(
-				`${useYarn ? "yarn run" : useNpm ? "npx --no-install" : "pnpm run"} ${cmd} --${platform} ${
+				`${useYarn ? "yarn run" : useNpm ? "npx --no-install" : "pnpm"} ${cmd} --${platform} ${
 					release ? "--publish always" : ""
 				} ${args}`,
 				appRoot,
