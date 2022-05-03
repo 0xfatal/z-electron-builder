@@ -31,6 +31,9 @@
 		"extends": "@samuelmeuli/eslint-config",
 		"env": {
 			"node": true
+		},
+		"rules": {
+			"no-nested-ternary": "warn"
 		}
 	},
 	"eslintIgnore": [

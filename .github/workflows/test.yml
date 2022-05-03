@@ -28,6 +28,11 @@ jobs:
         run: |
           cd ${{ matrix.package_root }}
           ${{ matrix.package_manager }} install
+      
+      - uses: pnpm/action-setup@v2.1.0
+        with:
+          version: latest
+          run_install: true
 
       - name: Run action
         uses: ./
