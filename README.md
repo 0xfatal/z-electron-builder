@@ -144,7 +144,7 @@ If you've configured `electron-builder` to notarize your Electron Mac app [as de
 
     ```yml
     - name: Build/release Electron app
-      uses: ZacharyWin/z-electron-builder@v1
+      uses: ZacharyWin/z-electron-builder@v0.0.2
       with:
         # ...
       env:
