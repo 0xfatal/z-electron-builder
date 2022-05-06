@@ -8,7 +8,7 @@ GitHub Actions allows you to build your app on macOS, Windows and Linux without 
 
 ## Setup
 
-1. **Install and configure `electron-builder`** (v22+) in your Electron app. You can read about this in [the project's docs](https://www.electron.build) or in [my blog post](https://samuelmeuli.com/blog/2019-04-07-packaging-and-publishing-an-electron-app).
+1. **Install and configure `electron-builder`** (v22+) in your Electron app. You can read about this in [the project's docs](https://www.electron.build)
 
 2. If you need to compile code (e.g. TypeScript to JavaScript or Sass to CSS), make sure this is done using a **`build` script in your `package.json` file**. The action will execute that script before packaging your app. However, **make sure that the `build` script does _not_ run `electron-builder`**, as this action will do that for you.
 
@@ -37,7 +37,7 @@ GitHub Actions allows you to build your app on macOS, Windows and Linux without 
              node-version: 10
 
          - name: Build/release Electron app
-           uses: samuelmeuli/action-electron-builder@v1
+           uses: ZacharyWin/z-electron-builder@v1
            with:
              # GitHub token, automatically provided to the action
              # (No need to define this secret in the repo settings)
@@ -90,11 +90,11 @@ If you are building for **macOS**, you'll want your code to be [signed](https://
   - `mac_certs`: Your encoded certificates, i.e. the content of the `encoded.txt` file you created before
   - `mac_certs_password`: The password you set when exporting the certificates
 
-Add the following options to your workflow's existing `action-electron-builder` step:
+Add the following options to your workflow's existing `z-electron-builder` step:
 
 ```yml
 - name: Build/release Electron app
-  uses: samuelmeuli/action-electron-builder@v1
+  uses: ZacharyWin/z-electron-builder@v1
   with:
     # ...
     mac_certs: ${{ secrets.mac_certs }}
@@ -105,7 +105,7 @@ The same goes for **Windows** code signing (`windows_certs` and `windows_certs_p
 
 ### Snapcraft
 
-If you are building/releasing your Linux app for Snapcraft (which is `electron-builder`'s default), you will additionally need to install and sign in to Snapcraft. This can be done using an `action-snapcraft` step before the `action-electron-builder` step:
+If you are building/releasing your Linux app for Snapcraft (which is `electron-builder`'s default), you will additionally need to install and sign in to Snapcraft. This can be done using an `action-snapcraft` step before the `z-electron-builder` step:
 
 ```yml
 - name: Install Snapcraft
@@ -129,7 +129,7 @@ If you've configured `electron-builder` to notarize your Electron Mac app [as de
     - `api_key_id`: Key ID found on App Store Connect
     - `api_key_issuer_id`: Issuer ID found on App Store Connect
 
-2.  In your workflow file, add the following step before your `action-electron-builder` step:
+2.  In your workflow file, add the following step before your `z-electron-builder` step:
 
     ```yml
     - name: Prepare for app notarization
@@ -140,11 +140,11 @@ If you've configured `electron-builder` to notarize your Electron Mac app [as de
         echo '${{ secrets.api_key }}' > ~/private_keys/AuthKey_${{ secrets.api_key_id }}.p8
     ```
 
-3.  Pass the following environment variables to `action-electron-builder`:
+3.  Pass the following environment variables to `z-electron-builder`:
 
     ```yml
     - name: Build/release Electron app
-      uses: samuelmeuli/action-electron-builder@v1
+      uses: ZacharyWin/z-electron-builder@v1
       with:
         # ...
       env:
